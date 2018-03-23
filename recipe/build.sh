@@ -5,6 +5,11 @@ set -e -o pipefail -x
 BINARY_HOME=${PREFIX}/bin
 PACKAGE_HOME=${PREFIX}/share/${PKG_NAME}-${PKG_VERSION}-${PKG_BUILDNUM}
 
+# libiconv causes linkage conflicts on OSX
+if conda info | grep -q 'platform : osx'; then
+  rm -vf ${PREFIX}/lib/libiconv*
+fi
+
 mkdir -p ${BINARY_HOME}
 mkdir -p ${PACKAGE_HOME}
 
