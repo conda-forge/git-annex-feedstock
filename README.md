@@ -15,14 +15,16 @@ git-annex lets you use git to track large, distributed files without checking th
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/git-annex-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/git-annex-feedstock)
-OSX: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/git-annex-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/git-annex-feedstock)
+![OSX disabled](https://img.shields.io/badge/OSX-disabled-lightgrey.svg)
+![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/git-annex/badges/version.svg)](https://anaconda.org/conda-forge/git-annex)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/git-annex/badges/downloads.svg)](https://anaconda.org/conda-forge/git-annex)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-git--annex-green.svg)](https://anaconda.org/conda-forge/git-annex) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/git-annex.svg)](https://anaconda.org/conda-forge/git-annex) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/git-annex.svg)](https://anaconda.org/conda-forge/git-annex) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/git-annex.svg)](https://anaconda.org/conda-forge/git-annex) |
 
 Installing git-annex
 ====================
