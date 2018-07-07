@@ -12,39 +12,39 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win or osx]
 
 requirements:
   build:
-    - toolchain
     - pkg-config
+    - {{ compiler('c') }}
+  host:
     - perl
     - git >=2
     - stack
-    - ncurses 5.9
+    - ncurses
     - libmagic >=5.30
     - libgsasl
-    - gmp 6.1.*
+    - gmp
     - rsync
     - libffi
     - gnutls
-    - libxml2 2.9.*
-    - sqlite 3.20.*
+    - libxml2
+    - sqlite
     - chrpath  # [linux]
   run:
-    - toolchain
     - perl
     - git >=2
     - rsync
-    - ncurses 5.9
+    - ncurses
     - libmagic >=5.30
     - libgsasl
-    - gmp 6.1.*
+    - gmp
     - libffi
     - gnutls
-    - libxml2 2.9.*
-    - sqlite 3.20.*
+    - libxml2
+    - sqlite
     - chrpath  # [linux]
 
 about:
