@@ -24,11 +24,9 @@ requirements:
     - stack
     - ncurses 5.9
     - libmagic >=5.30
-    - libgsasl
     - gmp 6.1.*
     - rsync
     - libffi
-    - gnutls
     - libxml2 2.9.*
     - sqlite 3.20.*
     - chrpath  # [linux]
@@ -38,10 +36,8 @@ requirements:
     - rsync
     - ncurses 5.9
     - libmagic >=5.30
-    - libgsasl
     - gmp 6.1.*
     - libffi
-    - gnutls
     - libxml2 2.9.*
     - sqlite 3.20.*
 
