@@ -1,6 +1,6 @@
 {% set name = "git-annex" %}
-{% set version = "7.20191009" %}
-{% set sha256 = "8f3c6d45b0532edaf8102ae8f6b374abaab5e4b36988df7e404a8d95a8dccc83" %}
+{% set version = "7.20191017" %}
+{% set sha256 = "e0ba2828001b56f3c10ebd20fe78ea00f1d4acf99e995c84b6326d643166acf9" %}
 
 #
 # This recipe builds GHC, the Haskell compiler used to compile git-annex, from source, then uses it
