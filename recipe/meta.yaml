@@ -120,6 +120,7 @@ source:
 
 build:
   number: {{ build }}
+  skip: True  # [not linux]
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
   script: ${RECIPE_DIR}/build_nodepTrue.sh
   ignore_prefix_files: True
@@ -136,6 +137,7 @@ requirements:
     - 7zip
 build:
   number: {{ build }}
+  skip: True  # [not win]
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
   script: ${RECIPE_DIR}/build_nodepTrue_win.bat
 {% endif %}
