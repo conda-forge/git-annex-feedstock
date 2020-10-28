@@ -14,8 +14,15 @@
 {% set sha256 = "7f41d56041da79110aee971cb9f413a7e9f87baca3f3982c3595d0d8abf382c7" %}  # [nodep]
 {% set size = "55064901" %}  # [nodep]
 
+{% set version = "8.20201007+git115-g65c168743" %}  # [nodep and win]
+{% set sha256 = "904f7a4a7e1c40d0fba5d9f4097894ce0588d651f947ec689ae90fe151453ca7" %}  # [nodep and win]
+
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
+{% set linux = True %}  # [linux]
+{% set linux = False %}  # [not linux]
+{% set win = True %}  # [win]
+{% set win = False %}  # [not win]
 
 {% set build = 1 %}
 # prioritize non-nodep variant via build number
@@ -105,6 +112,7 @@ requirements:
 {% endif %}
 
 {% if nodep %}
+{% if linux %}
 source:
   - url: http://archive.org/download/git-annex-builds/SHA256E-s{{ size }}--{{ sha256 }}.tar.gz
 #  - url: https://downloads.kitenet.net/git-annex/autobuild/amd64/git-annex-standalone-amd64.tar.gz 
@@ -112,12 +120,25 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
   script: ${RECIPE_DIR}/build_nodepTrue.sh
   ignore_prefix_files: True
   detect_binary_files_with_prefix: False
   binary_relocation: False
+{% endif %}
+
+{% if win %}
+source:
+  - url: http://datasets.datalad.org/datalad/packages/windows/{{ name }}-installer_{{ version }}_x64.exe
+    sha256: {{ sha256 }}
+requirements:
+  build:
+    - 7zip
+build:
+  number: {{ build }}
+  string: "nodep_h{{ PKG_HASH }}_{{ build }}"
+  script: ${RECIPE_DIR}/build_nodepTrue_win.bat
+{% endif %}
 {% endif %}
 
 test:
