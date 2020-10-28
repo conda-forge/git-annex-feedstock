@@ -139,7 +139,7 @@ build:
   number: {{ build }}
   skip: True  # [not win]
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
-  script: ${RECIPE_DIR}/build_nodepTrue_win.bat
+  script: "%RECIPE_DIR%\\build_nodepTrue_win.bat"
 {% endif %}
 {% endif %}
 
