@@ -48,7 +48,7 @@
 
 package:
   name: {{ name }}
-  version: {{ version }}
+  version: {{ version.replace('+', '.').replace('-', '.') }}
 
 {% if not nodep %}
 source:
