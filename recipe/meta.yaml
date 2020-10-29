@@ -162,8 +162,14 @@ build:
 
 test:
   commands:
-    - git-annex version | grep {{ version }}
-    - git-annex test
+    - git-annex version
+    # nodep windows built comes without bundled git and posix tools ATM,
+    # and the only way to get consistent operation is to rely on outside of
+    # conda git windows installation, so we cannot really run any test besides
+    # the smoke test for version.  Also DataLad's build snapshot
+    # version differs from the one annex reports
+    - git-annex version | grep {{ version }}  # [not win]
+    - git-annex test  # [not win]
   downstreams:
     - annexremote
     - datalad=0.13.4  # [not nodep]
