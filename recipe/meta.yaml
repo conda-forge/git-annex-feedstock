@@ -17,12 +17,17 @@
 {% set version = "8.20201007+git115-g65c168743" %}  # [nodep and win]
 {% set sha256 = "904f7a4a7e1c40d0fba5d9f4097894ce0588d651f947ec689ae90fe151453ca7" %}  # [nodep and win]
 
+{% set version = "TODO" %}  # [nodep and osx]
+{% set sha256 = "TODO" %}  # [nodep and osx]
+
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
 {% set linux = True %}  # [linux]
 {% set linux = False %}  # [not linux]
 {% set win = True %}  # [win]
 {% set win = False %}  # [not win]
+{% set osx = True %}  # [osx]
+{% set osx = False %}  # [not osx]
 
 {% set build = 2 %}
 # prioritize non-nodep variant via build number
@@ -140,6 +145,18 @@ build:
   skip: True  # [not win]
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
   script: "%RECIPE_DIR%\\build_nodepTrue_win.bat"
+{% endif %}
+
+{% if osx %}
+source:
+  # later - url: http://datasets.datalad.org/datalad/packages/windows/{{ name }}-installer_{{ version }}_x64.exe
+  - url: https://downloads.kitenet.net/git-annex/autobuild/x86_64-apple-yosemite/git-annex.dmg
+    sha256: "c69accb64990664a40f4f13778f2330a17a506628c8c4ba4a57710c7a3f14840"
+build:
+  number: {{ build }}
+  skip: True  # [not osx]
+  string: "nodep_h{{ PKG_HASH }}_{{ build }}"
+  script: ${RECIPE_DIR}/build_nodepTrue_osx.sh
 {% endif %}
 {% endif %}
 
