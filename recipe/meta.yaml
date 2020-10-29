@@ -14,10 +14,22 @@
 {% set sha256 = "7f41d56041da79110aee971cb9f413a7e9f87baca3f3982c3595d0d8abf382c7" %}  # [nodep]
 {% set size = "55064901" %}  # [nodep]
 
+{% set version = "8.20201007+git115-g65c168743" %}  # [nodep and win]
+{% set sha256 = "904f7a4a7e1c40d0fba5d9f4097894ce0588d651f947ec689ae90fe151453ca7" %}  # [nodep and win]
+
+{% set version = "TODO" %}  # [nodep and osx]
+{% set sha256 = "TODO" %}  # [nodep and osx]
+
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
+{% set linux = True %}  # [linux]
+{% set linux = False %}  # [not linux]
+{% set win = True %}  # [win]
+{% set win = False %}  # [not win]
+{% set osx = True %}  # [osx]
+{% set osx = False %}  # [not osx]
 
-{% set build = 1 %}
+{% set build = 2 %}
 # prioritize non-nodep variant via build number
 {% if not nodep %}
 {% set build = build + 100 %}
@@ -41,7 +53,7 @@
 
 package:
   name: {{ name }}
-  version: {{ version }}
+  version: {{ version.replace('+', '.').replace('-', '.') }}
 
 {% if not nodep %}
 source:
@@ -61,7 +73,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
+  skip: True  # TEMP 
   string: "alldep_h{{ PKG_HASH }}_{{ build }}"  # [not nodep]
   script: ${RECIPE_DIR}/build_nodepFalse.sh
 
@@ -105,6 +117,7 @@ requirements:
 {% endif %}
 
 {% if nodep %}
+{% if linux %}
 source:
   - url: http://archive.org/download/git-annex-builds/SHA256E-s{{ size }}--{{ sha256 }}.tar.gz
 #  - url: https://downloads.kitenet.net/git-annex/autobuild/amd64/git-annex-standalone-amd64.tar.gz 
@@ -112,7 +125,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
+  skip: True  # TEMP
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
   script: ${RECIPE_DIR}/build_nodepTrue.sh
   ignore_prefix_files: True
@@ -120,10 +133,43 @@ build:
   binary_relocation: False
 {% endif %}
 
+{% if win %}
+source:
+  - url: http://datasets.datalad.org/datalad/packages/windows/{{ name }}-installer_{{ version }}_x64.exe
+    sha256: {{ sha256 }}
+requirements:
+  build:
+    - 7zip
+build:
+  number: {{ build }}
+  skip: True  # [not win]
+  string: "nodep_h{{ PKG_HASH }}_{{ build }}"
+  script: "%RECIPE_DIR%\\build_nodepTrue_win.bat"
+{% endif %}
+
+{% if osx %}
+source:
+  # later - url: http://datasets.datalad.org/datalad/packages/osx/{{ name }}-installer_{{ version }}_x64.dmg
+  - url: https://downloads.kitenet.net/git-annex/autobuild/x86_64-apple-yosemite/git-annex.dmg
+    sha256: "c69accb64990664a40f4f13778f2330a17a506628c8c4ba4a57710c7a3f14840"
+build:
+  number: {{ build }}
+  skip: True  # [not osx]
+  string: "nodep_h{{ PKG_HASH }}_{{ build }}"
+  script: ${RECIPE_DIR}/build_nodepTrue_osx.sh
+{% endif %}
+{% endif %}
+
 test:
   commands:
-    - git-annex version | grep {{ version }}
-    - git-annex test
+    - git-annex version
+    # nodep windows built comes without bundled git and posix tools ATM,
+    # and the only way to get consistent operation is to rely on outside of
+    # conda git windows installation, so we cannot really run any test besides
+    # the smoke test for version.  Also DataLad's build snapshot
+    # version differs from the one annex reports
+    - git-annex version | grep {{ version }}  # [not win]
+    - git-annex test  # [not win]
   downstreams:
     - annexremote
     - datalad=0.13.4  # [not nodep]
