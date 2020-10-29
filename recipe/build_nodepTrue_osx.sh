@@ -8,9 +8,9 @@ if [ `uname` != Darwin ]; then
 fi
 
 echo "Mounting the disk image"
-DMG=`ls $SRC_DIR`
+DMG=`ls $SRC_DIR/*.dmg`
 MOUNT_POINT=`hdiutil attach $DMG| tail -n 1 | cut -f 1 -d" "`
-MOUNT_LOCATION=`mount | grep $MOUNT_POINT | cut -d" " -f 3`
+MOUNT_LOCATION=`mount | grep "$MOUNT_POINT" | cut -d" " -f 3`
 
 echo "Copying"
 rsync -a "$MOUNT_LOCATION/git-annex.app/Contents/MacOS/" "$PREFIX/bin/"

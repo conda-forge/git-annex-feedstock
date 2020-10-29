@@ -149,7 +149,7 @@ build:
 
 {% if osx %}
 source:
-  # later - url: http://datasets.datalad.org/datalad/packages/windows/{{ name }}-installer_{{ version }}_x64.exe
+  # later - url: http://datasets.datalad.org/datalad/packages/osx/{{ name }}-installer_{{ version }}_x64.dmg
   - url: https://downloads.kitenet.net/git-annex/autobuild/x86_64-apple-yosemite/git-annex.dmg
     sha256: "c69accb64990664a40f4f13778f2330a17a506628c8c4ba4a57710c7a3f14840"
 build:
