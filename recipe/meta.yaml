@@ -73,7 +73,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
+  skip: True  # TEMP 
   string: "alldep_h{{ PKG_HASH }}_{{ build }}"  # [not nodep]
   script: ${RECIPE_DIR}/build_nodepFalse.sh
 
@@ -125,7 +125,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
+  skip: True  # TEMP
   string: "nodep_h{{ PKG_HASH }}_{{ build }}"
   script: ${RECIPE_DIR}/build_nodepTrue.sh
   ignore_prefix_files: True
