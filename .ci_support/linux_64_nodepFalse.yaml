@@ -19,7 +19,7 @@ cxx_compiler_version:
 dbus:
 - '1'
 docker_image:
-- condaforge/linux-anvil-comp7
+- quay.io/condaforge/linux-anvil-comp7
 gmp:
 - '6'
 libffi:
