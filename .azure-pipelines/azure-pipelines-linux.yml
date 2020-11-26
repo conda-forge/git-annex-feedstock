@@ -11,11 +11,11 @@ jobs:
       linux_64_nodepFalse:
         CONFIG: linux_64_nodepFalse
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
       linux_64_nodepTrue:
         CONFIG: linux_64_nodepTrue
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-comp7
   timeoutInMinutes: 360
 
   steps:
