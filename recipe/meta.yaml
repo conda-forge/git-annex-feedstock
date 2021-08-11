@@ -134,7 +134,7 @@ test:
     - git-annex test
   downstreams:
     - annexremote
-#    - datalad=0.14.7
+    - datalad=0.14.3
 
 about:
   home: https://git-annex.branchable.com
