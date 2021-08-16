@@ -77,39 +77,39 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - stack
-    - perl
-    - coreutils
-    - binutils
-    - findutils
-    - pkg-config
-    - xz
-    - make
-    - automake
     - autoconf
-    - libtool
+    - automake
+    - binutils
     - bzip2
-    - ncurses
+    - coreutils
+    - findutils
     - libffi
+    - libtool
     - libxml2
-  host:
-    - gmp
-    - zlib
+    - make
     - ncurses
-    - libmagic
-    - sqlite
+    - perl
+    - pkg-config
+    - stack
+    - xz
+  host:
     - dbus
+    - gmp
     - libffi
     - libiconv
-    - openssh
+    - libmagic
     - lsof
+    - ncurses
+    - openssh
     - rsync
+    - sqlite
+    - zlib
   run:
-    - rsync
-    - git >=2.22
     - curl
-    - openssh
+    - git >=2.22
     - lsof
+    - openssh
+    - rsync
 {% endif %}
 
 {% if nodep %}
