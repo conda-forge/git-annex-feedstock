@@ -18,7 +18,7 @@
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
 
-{% set build = 1 %}  # [not nodep]
+{% set build = 2 %}  # [not nodep]
 {% set build = 1 %}  # [nodep]
 # prioritize non-nodep variant via build number
 {% if not nodep %}
@@ -107,6 +107,7 @@ requirements:
   run:
     - curl
     - git >=2.22
+    - gnupg >=2.1.1
     - lsof
     - openssh
     - rsync
