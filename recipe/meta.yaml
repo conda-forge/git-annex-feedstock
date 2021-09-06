@@ -7,19 +7,30 @@
 # git-annex into conda environments that include packages which conflict with some dependencies of git-annex.  The
 # standard (non-nodep) version is preferred; the nodep version should only be used in case of unresolvable dependency
 # conflicts.
+
+#
+# The standalone build is currently taken from the autobuilder run by git-annex' author, as ready-made binaries.
+# Better would be to build it as part of the conda-forge packaging process, but the current sources are designed to
+# be built on a Debian distribution, which conda-forge does not use.
 #
 
-{% set version = "8.20210803" %}  # [not nodep]
-{% set version = "8.20210715" %}  # [nodep]
-{% set sha256 = "628d6d9da30da85165df3fea9e4d24f179533b2296290e46ca7fbe450ac1e71c" %}  # [not nodep]
-{% set sha256 = "c2419981d633d598b760c89f5a309d1ec7ec66f5b8a1e734a7239b2d4c7a3d21" %}  # [nodep]
-{% set size = "51281961" %}  # [nodep]
+#
+# The version number printed by the standalone (nodep) version is typically behind the version number of the standard version,
+# but in practice has the same functionality -- see discussion here:
+# https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
+#
+{% set version = "8.20210903" %}
+{% set version_printed = version %}  # [not nodep]
+{% set version_printed = "8.20210804" %}  # [nodep]
+
+{% set sha256 = "74e7937c8e1f742497e2205e2d7293cb1c811fec4df76263c3bb5789d27cdfdc" %}  # [not nodep]
+{% set sha256 = "f9d4bec06dddaeced25eec5f46360223797363e608fe37cfa93b2481f0166e1f" %}  # [nodep]
+{% set size = "51465538" %}  # [nodep]
 
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
 
-{% set build = 1 %}  # [not nodep]
-{% set build = 1 %}  # [nodep]
+{% set build = 0 %}
 # prioritize non-nodep variant via build number
 {% if not nodep %}
 {% set build = build + 100 %}
@@ -130,7 +141,7 @@ build:
 
 test:
   commands:
-    - git-annex version | grep {{ version }}
+    - git-annex version | grep {{ version_printed }}
     - git-annex test
   downstreams:
     - annexremote
