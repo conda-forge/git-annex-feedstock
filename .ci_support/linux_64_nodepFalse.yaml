@@ -23,7 +23,7 @@ docker_image:
 gmp:
 - '6'
 libffi:
-- '3.3'
+- '3.4'
 libiconv:
 - '1.16'
 libxml2:
