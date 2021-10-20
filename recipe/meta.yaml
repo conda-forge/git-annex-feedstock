@@ -121,6 +121,7 @@ requirements:
     - curl
     - openssh
     - lsof
+    - gnupg
 {% endif %}
 
 {% if nodep %}
