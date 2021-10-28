@@ -73,87 +73,162 @@ fi
 unset host_alias
 unset build_alias
 
-# #######################################################################################################
-# # Install bootstrap ghc
-# #######################################################################################################
+#######################################################################################################
+# Install bootstrap ghc
+#######################################################################################################
 
-# export GHC_BOOTSTRAP_PREFIX=${SRC_DIR}/ghc_bootstrap_pfx
-# mkdir -p $GHC_BOOTSTRAP_PREFIX/bin
-# export PATH=$PATH:${GHC_BOOTSTRAP_PREFIX}/bin
+export GHC_BOOTSTRAP_PREFIX=${SRC_DIR}/ghc_bootstrap_pfx
+mkdir -p $GHC_BOOTSTRAP_PREFIX/bin
+export PATH=$PATH:${GHC_BOOTSTRAP_PREFIX}/bin
 
-# pushd ${SRC_DIR}/ghc_bootstrap
-# ./configure --prefix=${GHC_BOOTSTRAP_PREFIX}
-# make install
-# ghc-pkg recache
-# popd
+pushd ${SRC_DIR}/ghc_bootstrap
+./configure --prefix=${GHC_BOOTSTRAP_PREFIX}
+make install
+ghc-pkg recache
+popd
 
-# #######################################################################################################
-# # Build recent ghc from source
-# #######################################################################################################
+#######################################################################################################
+# Build recent ghc from source
+#######################################################################################################
 
-# pushd ${SRC_DIR}/ghc_src
+export GHC_SRC_PREFIX=${SRC_DIR}/ghc_src_pfx
+mkdir -p $GHC_SRC_PREFIX/bin
+export PATH_ORIG=$PATH
+export PATH=$PATH:${GHC_SRC_PREFIX}/bin
 
-# touch mk/build.mk
-# #echo "HADDOCK_DOCS = NO" >> mk/build.mk
-# echo "BuildFlavour = perf" >> mk/build.mk
-# echo "libraries/integer-gmp_CONFIGURE_OPTS += --configure-option=--with-gmp-includes=$PREFIX/include" >> mk/build.mk
-# echo "libraries/integer-gmp_CONFIGURE_OPTS += --configure-option=--with-gmp-libraries=$PREFIX/lib" >> mk/build.mk
-# echo "STRIP_CMD = $STRIP" >> build.mk
+pushd ${SRC_DIR}/ghc_src
 
-# echo "========CHECKING FREE SPACE GLOBALLY==========="
-# df
+touch mk/build.mk
+#echo "HADDOCK_DOCS = NO" >> mk/build.mk
+echo "BuildFlavour = perf" >> mk/build.mk
+echo "libraries/integer-gmp_CONFIGURE_OPTS += --configure-option=--with-gmp-includes=$PREFIX/include" >> mk/build.mk
+echo "libraries/integer-gmp_CONFIGURE_OPTS += --configure-option=--with-gmp-libraries=$PREFIX/lib" >> mk/build.mk
+echo "STRIP_CMD = $STRIP" >> build.mk
 
-# echo "========CHECKING FREE SPACE==========="
-# df .
+echo "========CHECKING FREE SPACE GLOBALLY==========="
+df
 
-# ./boot
-# ./configure --prefix=${BUILD_PREFIX}  --with-gmp-includes=$PREFIX/include --with-gmp-libraries=$PREFIX/lib --with-system-libffi
+echo "========CHECKING FREE SPACE==========="
+df .
 
-# set +e
-# echo "========BUILING GHC-STAGE1 FROM SOURCE, multi-cpu==========="
-# df .
-# make -j${CPU_COUNT} inplace/bin/ghc-stage1
-# df .
-# echo "========DONE BUILING GHC-STAGE1 FROM SOURCE, multi-cpu==========="
-# set -e
-# echo "========BUILING GHC-STAGE1 FROM SOURCE, one-cpu==========="
-# df .
-# make inplace/bin/ghc-stage1
-# df .
-# echo "========DONE BUILING GHC-STAGE1 FROM SOURCE, one-cpu==========="
+./boot
+./configure --prefix=${GHC_SRC_PREFIX}  --with-gmp-includes=$PREFIX/include --with-gmp-libraries=$PREFIX/lib --with-system-libffi
 
-# echo "========SPACE USAGE AFTER STAGE1================"
-# du | sort -rn
-# echo "========DONE SPACE USAGE AFTER STAGE1================"
+set +e
+echo "========BUILING GHC-STAGE1 FROM SOURCE, multi-cpu==========="
+df .
+make -j${CPU_COUNT} inplace/bin/ghc-stage1
+df .
+echo "========DONE BUILING GHC-STAGE1 FROM SOURCE, multi-cpu==========="
+set -e
+echo "========BUILING GHC-STAGE1 FROM SOURCE, one-cpu==========="
+df .
+make inplace/bin/ghc-stage1
+df .
+echo "========DONE BUILING GHC-STAGE1 FROM SOURCE, one-cpu==========="
 
-# set +e
-# echo "========BUILING GHC FROM SOURCE, multi-cpu==========="
-# df .
-# make -j${CPU_COUNT}
-# df .
-# echo "========DONE BUILING GHC FROM SOURCE, multi-cpu==========="
-# set -e
-# echo "========BUILING GHC FROM SOURCE, one-cpu==========="
-# df .
-# make
-# df .
-# echo "========DONE BUILING GHC FROM SOURCE, one-cpu==========="
-# echo "========INSTALLING GHC==========="
-# df .
-# make install
-# df .
-# echo "========CLEANING GHC==========="
-# rm -rf `find . -type d -name testsuite`
-# make clean || echo "Error cleaning, ignoring"
-# df .
-# echo "========RECACHING==========="
-# ghc-pkg recache
-# echo "========DONE RECACHING==========="
-# df .
-# echo "========SPACE USAGE AFTER RECACHING==========="
-# pwd
-# du -hs .
-# popd
+echo "========SPACE USAGE AFTER STAGE1================"
+du | sort -rn
+echo "========DONE SPACE USAGE AFTER STAGE1================"
+
+set +e
+echo "========BUILING GHC FROM SOURCE, multi-cpu==========="
+df .
+make -j${CPU_COUNT}
+df .
+echo "========DONE BUILING GHC FROM SOURCE, multi-cpu==========="
+set -e
+echo "========BUILING GHC FROM SOURCE, one-cpu==========="
+df .
+make
+df .
+echo "========DONE BUILING GHC FROM SOURCE, one-cpu==========="
+echo "========INSTALLING GHC==========="
+df .
+make install
+df .
+echo "========CLEANING GHC==========="
+rm -rf `find . -type d -name testsuite`
+make clean || echo "Error cleaning, ignoring"
+df .
+echo "========RECACHING==========="
+ghc-pkg recache
+echo "========DONE RECACHING==========="
+df .
+echo "========SPACE USAGE AFTER RECACHING==========="
+pwd
+du -hs .
+popd
+
+#######################################################################################################
+# Build most recent ghc from source
+#######################################################################################################
+
+echo "========BUILDING GHC_SRC2==========="
+
+pushd ${SRC_DIR}/ghc_src2
+
+touch mk/build.mk
+#echo "HADDOCK_DOCS = NO" >> mk/build.mk
+echo "BuildFlavour = perf" >> mk/build.mk
+echo "libraries/integer-gmp_CONFIGURE_OPTS += --configure-option=--with-gmp-includes=$PREFIX/include" >> mk/build.mk
+echo "libraries/integer-gmp_CONFIGURE_OPTS += --configure-option=--with-gmp-libraries=$PREFIX/lib" >> mk/build.mk
+echo "STRIP_CMD = $STRIP" >> build.mk
+
+echo "========CHECKING FREE SPACE GLOBALLY==========="
+df
+
+echo "========CHECKING FREE SPACE==========="
+df .
+
+./boot
+./configure --prefix=${BUILD_PREFIX}  --with-gmp-includes=$PREFIX/include --with-gmp-libraries=$PREFIX/lib --with-system-libffi
+
+set +e
+echo "========BUILING GHC-STAGE1 FROM SOURCE, multi-cpu==========="
+df .
+make -j${CPU_COUNT} inplace/bin/ghc-stage1
+df .
+echo "========DONE BUILING GHC-STAGE1 FROM SOURCE, multi-cpu==========="
+set -e
+echo "========BUILING GHC-STAGE1 FROM SOURCE, one-cpu==========="
+df .
+make inplace/bin/ghc-stage1
+df .
+echo "========DONE BUILING GHC-STAGE1 FROM SOURCE, one-cpu==========="
+
+echo "========SPACE USAGE AFTER STAGE1================"
+du | sort -rn
+echo "========DONE SPACE USAGE AFTER STAGE1================"
+
+set +e
+echo "========BUILING GHC FROM SOURCE, multi-cpu==========="
+df .
+make -j${CPU_COUNT}
+df .
+echo "========DONE BUILING GHC FROM SOURCE, multi-cpu==========="
+set -e
+echo "========BUILING GHC FROM SOURCE, one-cpu==========="
+df .
+make
+df .
+echo "========DONE BUILING GHC FROM SOURCE, one-cpu==========="
+echo "========INSTALLING GHC==========="
+df .
+make install
+df .
+echo "========CLEANING GHC==========="
+rm -rf `find . -type d -name testsuite`
+make clean || echo "Error cleaning, ignoring"
+df .
+echo "========RECACHING==========="
+ghc-pkg recache
+echo "========DONE RECACHING==========="
+df .
+echo "========SPACE USAGE AFTER RECACHING==========="
+pwd
+du -hs .
+popd
 
 #######################################################################################################
 # Build git-annex
