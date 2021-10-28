@@ -19,13 +19,12 @@
 # but in practice has the same functionality -- see discussion here:
 # https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
 #
-{% set version = "8.20211011" %}
-{% set version_printed = version %}  # [not nodep]
-{% set version_printed = "8.20210904" %}  # [nodep]
+{% set version = "8.20211028" %}
+{% set version_printed = "8.20211012-geb95ed486" %}  # [nodep]
 
-{% set sha256 = "8dc76be8821227601eaca42b4cf08c02f8296984d08649cf6d7655188348470b" %}  # [not nodep]
-{% set sha256 = "a9edc72a29d8b3e7cfb279fd3617547a6770418fd511609006b1df0a3e147bab" %}  # [nodep]
-{% set size = "51486557" %}  # [nodep]
+{% set sha256 = "cf5efe15e68d467daad673bec10037a27a78da7e4af9b4a85e10980bd90ace2d" %}  # [not nodep]
+{% set sha256 = "76351da63cef2e8b90a6c5fa42f51b9854ba17965df729176557fe6ba73e5df7" %}  # [nodep]
+{% set size = "51426621" %}  # [nodep]
 
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
@@ -70,13 +69,13 @@ source:
     patches:
       - 0001-add-fdo-notify.patch
 
-  - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos67-linux.tar.xz  # [linux]
-    sha256: {{ ghc_bootstrap_linux_sha256 }}  # [linux]
-    folder: ghc_bootstrap  # [linux]
+  # - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos67-linux.tar.xz  # [linux]
+  #   sha256: {{ ghc_bootstrap_linux_sha256 }}  # [linux]
+  #   folder: ghc_bootstrap  # [linux]
 
-  - url: https://downloads.haskell.org/~ghc/{{ ghc_src_version }}/ghc-{{ ghc_src_version }}-src.tar.xz
-    sha256: {{ ghc_src_sha256 }}
-    folder: ghc_src
+  # - url: https://downloads.haskell.org/~ghc/{{ ghc_src_version }}/ghc-{{ ghc_src_version }}-src.tar.xz
+  #   sha256: {{ ghc_src_sha256 }}
+  #   folder: ghc_src
 
 build:
   number: {{ build }}
@@ -103,6 +102,7 @@ requirements:
     - ncurses
     - libffi
     - libxml2
+    - ghc=8.10.7
   host:
     - gmp
     - zlib
