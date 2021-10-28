@@ -102,7 +102,7 @@ requirements:
     - ncurses
     - libffi
     - libxml2
-    - ghc=8.10.7
+    - ghc =8.10.7
   host:
     - gmp
     - zlib
