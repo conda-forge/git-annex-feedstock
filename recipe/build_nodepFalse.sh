@@ -79,6 +79,7 @@ unset build_alias
 
 export GHC_BOOTSTRAP_PREFIX=${SRC_DIR}/ghc_bootstrap_pfx
 mkdir -p $GHC_BOOTSTRAP_PREFIX/bin
+export PATH_ORIG=$PATH
 export PATH=$PATH:${GHC_BOOTSTRAP_PREFIX}/bin
 
 pushd ${SRC_DIR}/ghc_bootstrap
@@ -93,7 +94,6 @@ popd
 
 export GHC_SRC_PREFIX=${SRC_DIR}/ghc_src_pfx
 mkdir -p $GHC_SRC_PREFIX/bin
-export PATH_ORIG=$PATH
 export PATH=$PATH:${GHC_SRC_PREFIX}/bin
 
 pushd ${SRC_DIR}/ghc_src
@@ -167,6 +167,12 @@ popd
 echo "========BUILDING GHC_SRC2==========="
 
 pushd ${SRC_DIR}/ghc_src2
+
+echo "BEFORE FIXING PATH"
+echo $PATH
+export PATH=${PATH_ORIG}:${GHC_SRC_PREFIX}/bin
+echo "AFTER FIXING PATH"
+echo $PATH
 
 touch mk/build.mk
 #echo "HADDOCK_DOCS = NO" >> mk/build.mk
