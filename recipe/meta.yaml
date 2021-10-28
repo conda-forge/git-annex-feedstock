@@ -20,6 +20,7 @@
 # https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
 #
 {% set version = "8.20211028" %}
+{% set version_printed = version %}  # [not nodep]
 {% set version_printed = "8.20211012-geb95ed486" %}  # [nodep]
 
 {% set sha256 = "cf5efe15e68d467daad673bec10037a27a78da7e4af9b4a85e10980bd90ace2d" %}  # [not nodep]
