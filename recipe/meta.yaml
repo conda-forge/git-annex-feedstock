@@ -30,7 +30,7 @@
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
 
-{% set build = 0 %}
+{% set build = 1 %}
 # prioritize non-nodep variant via build number
 {% if not nodep %}
 {% set build = build + 100 %}
@@ -99,40 +99,40 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - stack
-    - perl
-    - coreutils
-    - binutils
-    - findutils
-    - pkg-config
-    - xz
-    - make
-    - automake
     - autoconf
-    - libtool
+    - automake
+    - binutils
     - bzip2
-    - ncurses
+    - coreutils
+    - findutils
     - libffi
+    - libtool
     - libxml2
-  host:
-    - gmp
-    - zlib
+    - make
     - ncurses
-    - libmagic
-    - sqlite
+    - perl
+    - pkg-config
+    - stack
+    - xz
+  host:
     - dbus
+    - gmp
     - libffi
     - libiconv
-    - openssh
+    - libmagic
     - lsof
+    - ncurses
+    - openssh
     - rsync
+    - sqlite
+    - zlib
   run:
-    - rsync
-    - git >=2.22
     - curl
-    - openssh
+    - git >=2.22
+    - gnupg >=2.1.1
     - lsof
-    - gnupg
+    - openssh
+    - rsync
 {% endif %}
 
 {% if nodep %}
@@ -149,9 +149,15 @@ build:
   ignore_prefix_files: True
   detect_binary_files_with_prefix: False
   binary_relocation: False
+
+requirements:
+  run_constrained:
+    - gnupg >=2.1.1
 {% endif %}
 
 test:
+  requires:
+    - gnupg >=2.1.1
   commands:
     - git-annex version | grep {{ version_printed }}
     - git-annex test
