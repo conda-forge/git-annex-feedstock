@@ -1,0 +1,128 @@
+From 623a775609c486b5cd3441c5bca7c3d4a988eae0 Mon Sep 17 00:00:00 2001
+From: Joey Hess <joeyh@joeyh.name>
+Date: Fri, 19 Nov 2021 12:51:08 -0400
+Subject: [PATCH] fix cat-file leak in get with -J
+
+Bugfix: When -J was enabled, getting files leaked a ever-growing number of
+git cat-file processes.
+
+(Since commit dd39e9e255a5684824ea75861f48f658eaaba288)
+
+The leak happened when mergeState called stopNonConcurrentSafeCoProcesses.
+While stopNonConcurrentSafeCoProcesses usually manages to stop everything,
+there was a race condition where cat-file processes were leaked. Because
+catFileStop modifies Annex.catfilehandles in a non-concurrency safe way,
+and could clobber modifications made in between. Which should have been ok,
+since originally catFileStop was only used at shutdown.
+
+Note the comment on catFileStop saying it should only be used when nothing
+else is using the handles. It would be possible to make catFileStop
+race-safe, but it should just not be used in a situation where a race is
+possible. So I didn't bother.
+
+Instead, the fix is just not to stop any processes in mergeState. Because
+in order for mergeState to be called, dupState must have been run, and it
+enables concurrency mode, stops any non-concurrent processes, and so all
+processes that are running are concurrency safea. So there is no need to
+stop them when merging state. Indeed, stopping them would be extra work,
+even if there was not this bug.
+
+Sponsored-by: Dartmouth College's Datalad project
+---
+ Annex/Action.hs                                      |  9 +--------
+ Annex/Concurrent.hs                                  | 12 ++++--------
+ CHANGELOG                                            |  2 ++
+ ...nex_causing_zombie_git_processes_to_build_up.mdwn |  2 ++
+ ...ment_13_41e0fada90d795b9be12929ed66231e1._comment |  7 +++++++
+ 5 files changed, 16 insertions(+), 16 deletions(-)
+ create mode 100644 doc/forum/git-annex_causing_zombie_git_processes_to_build_up/comment_13_41e0fada90d795b9be12929ed66231e1._comment
+
+diff --git a/Annex/Action.hs b/Annex/Action.hs
+index c6f1c4758..95b440fe8 100644
+--- a/Annex/Action.hs
++++ b/Annex/Action.hs
+@@ -13,7 +13,6 @@ module Annex.Action (
+ 	startup,
+ 	shutdown,
+ 	stopCoProcesses,
+-	stopNonConcurrentSafeCoProcesses,
+ ) where
+ 
+ import qualified Data.Map as M
+@@ -85,14 +84,8 @@ shutdown nocommit = do
+ {- Stops all long-running child processes, including git query processes. -}
+ stopCoProcesses :: Annex ()
+ stopCoProcesses = do
+-	stopNonConcurrentSafeCoProcesses
+-	emptyTransferrerPool
+-
+-{- Stops long-running child processes that use handles that are not safe
+- - for multiple threads to access at the same time. -}
+-stopNonConcurrentSafeCoProcesses :: Annex ()
+-stopNonConcurrentSafeCoProcesses = do
+ 	catFileStop
+ 	checkAttrStop
+ 	hashObjectStop
+ 	checkIgnoreStop
++	emptyTransferrerPool
+diff --git a/Annex/Concurrent.hs b/Annex/Concurrent.hs
+index 0851df8c9..2a9c20938 100644
+--- a/Annex/Concurrent.hs
++++ b/Annex/Concurrent.hs
+@@ -101,14 +101,10 @@ dupState = do
+ 		, Annex.errcounter = 0
+ 		}
+ 
+-{- Merges the passed AnnexState into the current Annex state.
+- - Also closes various handles in it. -}
++{- Merges the passed AnnexState into the current Annex state. -}
+ mergeState :: AnnexState -> Annex ()
+ mergeState st = do
+-	rd <- Annex.getRead id
+-	st' <- liftIO $ (fst . snd)
+-		<$> run (st, rd) stopNonConcurrentSafeCoProcesses
+-	forM_ (M.toList $ Annex.cleanupactions st') $
++	forM_ (M.toList $ Annex.cleanupactions st) $
+ 		uncurry addCleanupAction
+-	Annex.Queue.mergeFrom st'
+-	changeState $ \s -> s { errcounter = errcounter s + errcounter st' }
++	Annex.Queue.mergeFrom st
++	changeState $ \s -> s { errcounter = errcounter s + errcounter st }
+diff --git a/CHANGELOG b/CHANGELOG
+index f8c27dd69..00b401c69 100644
+--- a/CHANGELOG
++++ b/CHANGELOG
+@@ -1,5 +1,7 @@
+ git-annex (8.20211118) UNRELEASED; urgency=medium
+ 
++  * Bugfix: When -J was enabled, getting files leaked a ever-growing
++    number of git cat-file processes.
+   * importfeed: Display url before starting youtube-dl download.
+ 
+  -- Joey Hess <id@joeyh.name>  Wed, 17 Nov 2021 13:18:44 -0400
+diff --git a/doc/forum/git-annex_causing_zombie_git_processes_to_build_up.mdwn b/doc/forum/git-annex_causing_zombie_git_processes_to_build_up.mdwn
+index 944be373a..493f06b79 100644
+--- a/doc/forum/git-annex_causing_zombie_git_processes_to_build_up.mdwn
++++ b/doc/forum/git-annex_causing_zombie_git_processes_to_build_up.mdwn
+@@ -23,3 +23,5 @@ I'm unsure how to debug what is wrong, so seeking guidance.
+ Tomorrow I'll start to see if I can reproduce with older/newer versions of git-annex.
+ 
+ [[!tag forumbug]]
++
++[[bugs/done]]
+diff --git a/doc/forum/git-annex_causing_zombie_git_processes_to_build_up/comment_13_41e0fada90d795b9be12929ed66231e1._comment b/doc/forum/git-annex_causing_zombie_git_processes_to_build_up/comment_13_41e0fada90d795b9be12929ed66231e1._comment
+new file mode 100644
+index 000000000..8df3c1700
+--- /dev/null
++++ b/doc/forum/git-annex_causing_zombie_git_processes_to_build_up/comment_13_41e0fada90d795b9be12929ed66231e1._comment
+@@ -0,0 +1,7 @@
++[[!comment format=mdwn
++ username="joey"
++ subject="""comment 13"""
++ date="2021-11-19T16:22:47Z"
++ content="""
++Fixed.
++"""]]
+-- 
+2.24.0
+
