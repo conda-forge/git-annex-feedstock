@@ -15,17 +15,17 @@
 #
 
 #
-# The version number printed by the standalone (nodep) version is typically behind the version number of the standard version,
-# but in practice has the same functionality -- see discussion here:
+# The version number printed by the standalone (nodep) version is typically behind the version number of 
+# the standard version, but in practice has the same functionality -- see discussion here:
 # https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
 #
-{% set version = "8.20211028" %}
+{% set version = "8.20211123" %}
 {% set version_printed = version %}  # [not nodep]
-{% set version_printed = "8.20211012-geb95ed486" %}  # [nodep]
+{% set version_printed = "8.20211118-g23ee48898" %}  # [nodep]
 
-{% set sha256 = "cf5efe15e68d467daad673bec10037a27a78da7e4af9b4a85e10980bd90ace2d" %}  # [not nodep]
-{% set sha256 = "76351da63cef2e8b90a6c5fa42f51b9854ba17965df729176557fe6ba73e5df7" %}  # [nodep]
-{% set size = "51426621" %}  # [nodep]
+{% set sha256 = "7496b79725f8ce534abbe93a30ca07265c67a5b1df9b12c302bbab000c842d45" %}  # [not nodep]
+{% set sha256 = "268a08bacbc05d3bfe47846bd3a8a9f2a1f135e199747f3a1564c02b418c217d" %}  # [nodep]
+{% set size = "51970175" %}  # [nodep]
 
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
@@ -46,6 +46,16 @@
 # https://github.com/conda-forge/git-annex-feedstock/pull/44
 # https://github.com/bioconda/bioconda-recipes/pull/16008
 #
+
+#
+# We currently do a two-stage boostrap:
+#   (note: ghc_bootstrap_version, ghc_src_version and ghc_src2_version are jinja2 variables defined below)
+#   - use binary distribution of GHC ghc_bootstrap_version to compile from source GHC ghc_src_version
+#   - use GHC ghc_src_version to compile GHC ghc_src2_version
+#   - use GHC ghc_src2_version to compile git-annex
+# This approach is needed because the only GHC version whose binary distribution seems compatible
+# with the conda-forge build environment is ghc_bootstrap_version, and that version is much too old to
+# build git-annex with.
 
 # ghc_src_version must correspond to the ghc version of the LTS Haskell version specified in the
 # resolver: line in stack.yaml file which is at the root of the git-annex source archive.
