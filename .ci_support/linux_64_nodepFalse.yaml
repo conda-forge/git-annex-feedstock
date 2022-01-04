@@ -19,11 +19,11 @@ cxx_compiler_version:
 dbus:
 - '1'
 docker_image:
-- quay.io/condaforge/linux-anvil-comp7
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 gmp:
 - '6'
 libffi:
-- '3.3'
+- '3.4'
 libiconv:
 - '1.16'
 libxml2:
@@ -66,7 +66,5 @@ xz:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-- - cdt_name
-  - docker_image
 zlib:
 - '1.2'
