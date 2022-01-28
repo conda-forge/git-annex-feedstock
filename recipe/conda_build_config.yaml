@@ -1,3 +1,5 @@
 nodep:
   - False
   - True
+docker:
+  image: "condaforge/linux-anvil-comp7"
