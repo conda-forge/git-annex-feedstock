@@ -1,5 +1,6 @@
 nodep:
   - False
   - True
-docker:
-  image: "condaforge/linux-anvil-comp7"
+docker_image:
+  - quay.io/condaforge/linux-anvil-cos7
+
