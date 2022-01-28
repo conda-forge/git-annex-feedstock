@@ -115,6 +115,7 @@ requirements:
     - bzip2
     - coreutils
     - findutils
+    - gmp
     - libffi
     - libtool
     - libxml2
