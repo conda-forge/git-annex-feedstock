@@ -29,7 +29,7 @@ libiconv:
 libxml2:
 - '2.9'
 ncurses:
-- '6.2'
+- '6'
 nodep:
 - 'True'
 perl:
@@ -48,8 +48,6 @@ pin_run_as_build:
   libiconv:
     max_pin: x.x
   libxml2:
-    max_pin: x.x
-  ncurses:
     max_pin: x.x
   sqlite:
     max_pin: x
