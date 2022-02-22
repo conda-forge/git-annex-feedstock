@@ -20,13 +20,13 @@
 # https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
 #
 {% set version = "10.20220222" %}  # [not nodep]
-{% set version = "10.20220121" %}  # [nodep]
+{% set version = "10.20220128" %}  # [nodep]
 {% set version_printed = version %}  # [not nodep]
-{% set version_printed = "10.20220121-gdf6a8476e" %}  # [nodep]
+{% set version_printed = "10.20220128-g7e9ebea91" %}  # [nodep]
 
 {% set sha256 = "1fb9f75a83feb16f7515122135c0f3abe6aa77544d8d778792296cbc053d2c85" %}  # [not nodep]
-{% set sha256 = "45cfaddc859d24f7e5e7eb3ab10c14a94d744705d365f26b54a50855ab1068f3" %}  # [nodep]
-{% set size = "52034939" %}  # [nodep]
+{% set sha256 = "65c1bc4c59f9545777c53980ea2a7984d79f7c7d90a106fbe330a798d2066a65" %}  # [nodep]
+{% set size = "52215997" %}  # [nodep]
 
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
