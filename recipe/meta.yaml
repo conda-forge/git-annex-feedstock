@@ -58,7 +58,7 @@
 # with the conda-forge build environment is ghc_bootstrap_version, and that version is much too old to
 # build git-annex with.
 
-# ghc_src_version must correspond to the ghc version of the LTS Haskell version specified in the
+# ghc_src2_version must correspond to the ghc version of the LTS Haskell version specified in the
 # resolver: line in stack.yaml file which is at the root of the git-annex source archive.
 # E.g. for resolver: lts-18.13 the ghc version given at https://www.stackage.org/lts-18.13 is 8.10.7
 {% set ghc_src2_version = "8.10.7" %}
