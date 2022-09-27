@@ -25,7 +25,7 @@ gmp:
 libffi:
 - '3.4'
 libiconv:
-- '1.16'
+- '1'
 libxml2:
 - '2.9'
 ncurses:
@@ -34,33 +34,12 @@ nodep:
 - 'True'
 perl:
 - 5.32.1
-pin_run_as_build:
-  bzip2:
-    max_pin: x
-  curl:
-    max_pin: x
-  dbus:
-    max_pin: x
-  gmp:
-    max_pin: x
-  libffi:
-    max_pin: x.x
-  libiconv:
-    max_pin: x.x
-  libxml2:
-    max_pin: x.x
-  sqlite:
-    max_pin: x
-  xz:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
 sqlite:
 - '3'
 target_platform:
 - linux-64
 xz:
-- '5.2'
+- '5'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
