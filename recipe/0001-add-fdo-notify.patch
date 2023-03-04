@@ -6,11 +6,10 @@ index 7dbfb657a..207163dad 100644
  - '.'
  resolver: lts-18.13
  extra-deps:
-+- aeson-2.1.2.1
 +- fdo-notify-0.3.1
  - IfElse-0.85
 -- aws-0.22
-+- aws-0.24
++- aws-0.23
  - bloomfilter-2.0.1.0
  - git-lfs-1.2.0
  - http-client-restricted-0.0.4
