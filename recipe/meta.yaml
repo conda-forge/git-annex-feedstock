@@ -60,21 +60,21 @@
 
 # ghc_src2_version must correspond to the ghc version of the LTS Haskell version specified in the
 # resolver: line in stack.yaml file which is at the root of the git-annex source archive.
-# E.g. for resolver: lts-18.13 the ghc version given at https://www.stackage.org/lts-18.13 is 8.10.7
-{% set ghc_src2_version = "8.10.7" %}
-{% set ghc_src2_sha256 = "e3eef6229ce9908dfe1ea41436befb0455fefb1932559e860ad4c606b0d03c9d" %}
+# E.g. for resolver: lts-19.33 the ghc version given at https://www.stackage.org/lts-19.33 is 9.0.2
+{% set ghc_src2_version = "9.0.2" %}
+{% set ghc_src2_sha256 = "140e42b96346322d1a39eb17602bcdc76e292028ad4a69286b230bab188a9197" %}
 
 # ghc_src_version must be recent enough to compile ghc_src2_version.
 # E.g. for ghc_src2_version 8.10.7, the page at https://www.haskell.org/ghc/download_ghc_8_10_7.html#sources
 # says ghc_src_version must be at least 8.6
-{% set ghc_src_version = "8.8.4" %}
-{% set ghc_src_sha256 = "f0505e38b2235ff9f1090b51f44d6c8efd371068e5a6bb42a2a6d8b67b5ffc2d" %}
+{% set ghc_src_version = "8.10.7" %}
+{% set ghc_src_sha256 = "e3eef6229ce9908dfe1ea41436befb0455fefb1932559e860ad4c606b0d03c9d" %}
 
 # ghc_bootstrap_version must be recent enough to compile ghc_src_version.
 # E.g. for ghc_src_version 8.8.4, the page at https://www.haskell.org/ghc/download_ghc_8_8_4.html#sources
 # says ghc_boostrap_version must be at least 8.4
-{% set ghc_bootstrap_version = "8.4.2" %}
-{% set ghc_bootstrap_linux_sha256 = "28c31489ed9a83af4400685ec8bc72a6d43d08958d75b2dc35d29a894a5c9d93" %}
+{% set ghc_bootstrap_version = "8.8.4" %}
+{% set ghc_bootstrap_linux_sha256 = "a12aa4b1fd3c64240a8a6d15196d33e1c0e0d55b51ff78c387242126d0ef7910" %}
 
 package:
   name: {{ name }}
@@ -88,7 +88,7 @@ source:
     patches:
       - 0001-add-fdo-notify.patch
 
-  - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos67-linux.tar.xz  # [linux]
+  - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos7-linux.tar.xz  # [linux]
     sha256: {{ ghc_bootstrap_linux_sha256 }}  # [linux]
     folder: ghc_bootstrap  # [linux]
 
