@@ -1,15 +1,24 @@
 diff --git a/stack.yaml b/stack.yaml
-index 7dbfb657a..3fb85d43a 100644
+index 7dbfb657a..8f944c585 100644
 --- a/stack.yaml
 +++ b/stack.yaml
-@@ -13,8 +13,9 @@ packages:
+@@ -11,10 +11,11 @@ flags:
+     gitlfs: true
+ packages:
  - '.'
- resolver: lts-18.13
+-resolver: lts-18.13
++resolver: lts-19.33
  extra-deps:
 +- fdo-notify-0.3.1
  - IfElse-0.85
 -- aws-0.22
-+- aws-0.23
++- aws-0.24
  - bloomfilter-2.0.1.0
  - git-lfs-1.2.0
  - http-client-restricted-0.0.4
+@@ -24,4 +25,4 @@ extra-deps:
+ - base16-bytestring-0.1.1.7
+ - base64-bytestring-1.0.0.3
+ - bencode-0.6.1.1
+-- http-client-0.7.9
++- http-client-0.7.13
