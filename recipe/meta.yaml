@@ -73,8 +73,8 @@
 # ghc_bootstrap_version must be recent enough to compile ghc_src_version.
 # E.g. for ghc_src_version 8.8.4, the page at https://www.haskell.org/ghc/download_ghc_8_8_4.html#sources
 # says ghc_boostrap_version must be at least 8.4
-{% set ghc_bootstrap_version = "8.8.4" %}
-{% set ghc_bootstrap_linux_sha256 = "a12aa4b1fd3c64240a8a6d15196d33e1c0e0d55b51ff78c387242126d0ef7910" %}
+{% set ghc_bootstrap_version = "8.4.2" %}
+{% set ghc_bootstrap_linux_sha256 = "28c31489ed9a83af4400685ec8bc72a6d43d08958d75b2dc35d29a894a5c9d93" %}
 
 package:
   name: {{ name }}
@@ -88,7 +88,7 @@ source:
     patches:
       - 0001-add-fdo-notify.patch
 
-  - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos7-linux.tar.xz  # [linux]
+  - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos67-linux.tar.xz  # [linux]
     sha256: {{ ghc_bootstrap_linux_sha256 }}  # [linux]
     folder: ghc_bootstrap  # [linux]
 
