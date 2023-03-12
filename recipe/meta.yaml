@@ -73,8 +73,8 @@
 # ghc_bootstrap_version must be recent enough to compile ghc_src_version.
 # E.g. for ghc_src_version 8.8.4, the page at https://www.haskell.org/ghc/download_ghc_8_8_4.html#sources
 # says ghc_boostrap_version must be at least 8.4
-{% set ghc_bootstrap_version = "8.6.5" %}
-{% set ghc_bootstrap_linux_sha256 = "80ab566f4411299f9e5922d60749ca80f989d697db19e03ed875619d699f0edf" %}
+{% set ghc_bootstrap_version = "8.8.4" %}
+{% set ghc_bootstrap_linux_sha256 = "a12aa4b1fd3c64240a8a6d15196d33e1c0e0d55b51ff78c387242126d0ef7910" %}
 
 package:
   name: {{ name }}
