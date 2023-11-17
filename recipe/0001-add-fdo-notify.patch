@@ -1,24 +1,24 @@
-From 033b40e8c06898464280757a005f838a6ea184b0 Mon Sep 17 00:00:00 2001
-From: Ilya Shlyakhter <ilya_shl@alum.mit.edu>
-Date: Sat, 12 Sep 2020 21:01:54 -0400
-Subject: [PATCH] add fdo-notify
-
----
- stack.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
 diff --git a/stack.yaml b/stack.yaml
-index b4a866c..f73e89a 100755
+index 7dbfb657a..8f944c585 100644
 --- a/stack.yaml
 +++ b/stack.yaml
-@@ -15,6 +15,7 @@ flags:
+@@ -11,10 +11,11 @@ flags:
+     gitlfs: true
  packages:
  - '.'
+-resolver: lts-18.13
++resolver: lts-19.33
  extra-deps:
 +- fdo-notify-0.3.1
  - IfElse-0.85
- - aws-0.22
+-- aws-0.22
++- aws-0.24
  - bloomfilter-2.0.1.0
--- 
-2.23.0
-
+ - git-lfs-1.2.0
+ - http-client-restricted-0.0.4
+@@ -24,4 +25,4 @@ extra-deps:
+ - base16-bytestring-0.1.1.7
+ - base64-bytestring-1.0.0.3
+ - bencode-0.6.1.1
+-- http-client-0.7.9
++- http-client-0.7.13
