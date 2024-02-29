@@ -261,15 +261,15 @@ mkdir -p $STACK_ROOT
 
 echo $PATH
 echo "========CALLING STACK SETUP==========="
-stack -v --system-ghc setup 
+stack -v setup 
 echo "========CALLING STACK PATH==========="
-stack -v --system-ghc path
+stack -v path
 echo "========CALLING STACK UPDATE==========="
-stack -v --system-ghc update 
+stack -v update 
 #echo "========CALLING STACK BUILD NETWORK==========="
-#stack -v --system-ghc build --cabal-verbose --extra-include-dirs ${PREFIX}/include --extra-lib-dirs ${PREFIX}/lib --ghc-options " -optc-I${PREFIX}/include -optl-L${PREFIX}/lib " --local-bin-path ${PREFIX}/bin network-2.8.0.1
+#stack -v build --cabal-verbose --extra-include-dirs ${PREFIX}/include --extra-lib-dirs ${PREFIX}/lib --ghc-options " -optc-I${PREFIX}/include -optl-L${PREFIX}/lib " --local-bin-path ${PREFIX}/bin network-2.8.0.1
 echo "========CALLING STACK BUILD==========="
-stack -v --system-ghc install --cabal-verbose --extra-include-dirs ${PREFIX}/include --extra-lib-dirs ${PREFIX}/lib --ghc-options " -optc-I${PREFIX}/include -optl-L${PREFIX}/lib " --local-bin-path ${PREFIX}/bin --flag git-annex:magicmime --flag git-annex:dbus
+stack -v install --cabal-verbose --extra-include-dirs ${PREFIX}/include --extra-lib-dirs ${PREFIX}/lib --ghc-options " -optc-I${PREFIX}/include -optl-L${PREFIX}/lib " --local-bin-path ${PREFIX}/bin --flag git-annex:magicmime --flag git-annex:dbus
 ln -s ${PREFIX}/bin/git-annex ${PREFIX}/bin/git-annex-shell
 echo "========CALLING STACK INSTALL==========="
 #make install BUILDER=stack PREFIX=${PREFIX}
