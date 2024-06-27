@@ -27,7 +27,7 @@ libffi:
 libiconv:
 - '1'
 libxml2:
-- '2.11'
+- '2'
 ncurses:
 - '6'
 nodep:
@@ -43,7 +43,5 @@ xz:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-- - c_stdlib_version
-  - cdt_name
 zlib:
-- '1.2'
+- '1'
