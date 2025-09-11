@@ -100,7 +100,8 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
+  # skip: True  # [not linux]
+  skip: True  # FIXME: nodepFalse builds are broken
   string: "alldep_h{{ PKG_HASH }}_{{ build }}"  # [not nodep]
   script: ${RECIPE_DIR}/build_nodepFalse.sh
   # Tracked features also de-prioritize that build
