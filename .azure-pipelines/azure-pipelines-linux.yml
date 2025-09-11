@@ -8,10 +8,6 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_nodepFalse:
-        CONFIG: linux_64_nodepFalse
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_64_nodepTrue:
         CONFIG: linux_64_nodepTrue
         UPLOAD_PACKAGES: 'True'
