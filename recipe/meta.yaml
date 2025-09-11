@@ -19,19 +19,19 @@
 # the standard version, but in practice has the same functionality -- see discussion here:
 # https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
 #
-{% set version = "10.20230626" %}  # [not nodep]
-{% set version = "10.20230626" %}  # [nodep]
+{% set version = "10.20250828" %}  # [not nodep]
+{% set version = "10.20250828" %}  # [nodep]
 {% set version_printed = version %}  # [not nodep]
-{% set version_printed = "10.20230408-g5b1e8ba77" %}  # [nodep]
+{% set version_printed = "10.20250828-gfe7ecf505146342fe8df2430a0bcaf5f02d89a80" %}  # [nodep]
 
-{% set sha256 = "29fdc05dc072794ccbb6ed45ae1fb5d4d81c7a670be00c4e257ea450165526fc" %}  # [not nodep]
-{% set sha256 = "5c322c5c5b35e5835bb94c97be143d2717de1e8fb66f7b037720f7dd1d9cc71f" %}  # [nodep]
-{% set size = "54263192" %}  # [nodep]
+{% set sha256 = "a4fa952cd35a548182965507a6bccddc1c0acfaa31aa2ef49c176b10edc13187" %}  # [not nodep]
+{% set sha256 = "eee92b8d2793a8920f93180b5b26a9d70acfa5a1c2b3e230d1d16f95dab7e231" %}  # [nodep]
+{% set size = "62222365" %}  # [nodep]
 
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
 
-{% set build = 1 %}
+{% set build = 0 %}
 # prioritize non-nodep variant via build number
 {% if not nodep %}
 {% set build = build + 100 %}
@@ -85,8 +85,6 @@ source:
   - url: https://hackage.haskell.org/package/{{ name }}-{{ version }}/{{ name }}-{{ version }}.tar.gz
     sha256: {{ sha256 }}
     folder: git_annex_main
-    patches:
-      - 0001-add-fdo-notify.patch
 
   - url: https://downloads.haskell.org/~ghc/{{ ghc_bootstrap_version }}/ghc-{{ ghc_bootstrap_version }}-x86_64-centos67-linux.tar.xz  # [linux]
     sha256: {{ ghc_bootstrap_linux_sha256 }}  # [linux]
@@ -102,7 +100,8 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [not linux]
+  # skip: True  # [not linux]
+  skip: True  # FIXME: nodepFalse builds are broken
   string: "alldep_h{{ PKG_HASH }}_{{ build }}"  # [not nodep]
   script: ${RECIPE_DIR}/build_nodepFalse.sh
   # Tracked features also de-prioritize that build
@@ -114,6 +113,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - autoconf
     - automake
