@@ -20,11 +20,6 @@ PACKAGE_HOME=${PREFIX}/share/${PKG_NAME}-${PKG_VERSION}-${PKG_BUILDNUM}
 mkdir -p ${PACKAGE_HOME} ${PREFIX}/bin
 
 mv * ${PACKAGE_HOME}/
-ln -s ${PACKAGE_HOME}/git-annex ${PREFIX}/bin/
-ln -s ${PACKAGE_HOME}/git-annex-shell ${PREFIX}/bin/
-ln -s ${PACKAGE_HOME}/git-annex-webapp ${PREFIX}/bin/
-ln -s ${PACKAGE_HOME}/git-remote-annex ${PREFIX}/bin/
-ln -s ${PACKAGE_HOME}/git-remote-p2p-annex ${PREFIX}/bin/
-ln -s ${PACKAGE_HOME}/git-remote-tor-annex ${PREFIX}/bin/
+ln -s ${PACKAGE_HOME}/git-{annex,annex-*,remote-*} ${PREFIX}/bin/
 touch ${PACKAGE_HOME}/.standalone-dist-installed
 
