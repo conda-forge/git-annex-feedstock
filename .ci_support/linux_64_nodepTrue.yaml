@@ -29,7 +29,7 @@ libffi:
 libiconv:
 - '1'
 libxml2:
-- '2.13'
+- '2.14'
 ncurses:
 - '6'
 nodep:
