@@ -31,7 +31,7 @@
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
 
-{% set build = 0 %}
+{% set build = 1 %}
 # prioritize non-nodep variant via build number
 {% if not nodep %}
 {% set build = build + 100 %}
