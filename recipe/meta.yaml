@@ -19,14 +19,14 @@
 # the standard version, but in practice has the same functionality -- see discussion here:
 # https://git-annex.branchable.com/forum/standalone_tarballs_for_specific_versions/#comment-d15b771fb5d23ce0c8dfb7f1c25064c5
 #
-{% set version = "10.20260717" %}  # [not nodep]
-{% set version = "10.20260717" %}  # [nodep]
+{% set version = "10.20261026" %}  # [not nodep]
+{% set version = "10.20261026" %}  # [nodep]
 {% set version_printed = version %}  # [not nodep]
-{% set version_printed = "10.20260717-g0c917920c80ab1e8cc3d8f5886537708949e1659" %}  # [nodep]
+{% set version_printed = "10.20261026-g3d686aa05be6b3e82584a529f4cfffdd9c6ca502" %}  # [nodep]
 
-{% set sha256 = "e0802511e0c90852f52997520668b70cfa1e57fc268d996564c24a289ea6e406" %}  # [not nodep]
-{% set sha256 = "a3c9d10ee33a7ace69efeaa8cd6282cfd7444ec797d732cebae12a64efefa18a" %}  # [nodep]
-{% set size = "63826294" %}  # [nodep]
+{% set sha256 = "fc080a8a556d364e3e9e6255e4ec1540cc53d568df01de30d93d4322e311d028" %}  # [not nodep]
+{% set sha256 = "e4346708287a4310fdd7203e8e5fe0d4e725b1e237e9bb026a78e3a54f7bb04b" %}  # [nodep]
+{% set size = "65466878" %}  # [nodep]
 
 {% set nodep = True %}  # [nodep]
 {% set nodep = False %}  # [not nodep]
