@@ -1,9 +1,11 @@
+DOCKER_PLATFORM:
+- linux/amd64
 bzip2:
 - '1'
 c_compiler:
 - gcc
 c_compiler_version:
-- '14'
+- '15'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -17,11 +19,11 @@ curl:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '14'
+- '15'
 dbus:
 - '1'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 gmp:
 - '6'
 libffi:
@@ -29,7 +31,7 @@ libffi:
 libiconv:
 - '1'
 libxml2:
-- '2.14'
+- '2.15'
 ncurses:
 - '6'
 nodep:
